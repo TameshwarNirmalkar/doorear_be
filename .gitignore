@@ -1,9 +1,4 @@
 node_modules
-*.env
-.env.local
-.env.development
-.env.local
-.env.production
 build
 dist
 coverage
@@ -13,3 +8,51 @@ npm-debug.log*
 yarn-error.log*
 *.log
 *.tsbuildinfo
+
+# --- System Files ---
+.DS_Store
+Thumbs.db
+*.swp
+Desktop.ini
+
+# --- Environment / Secrets (CRITICAL) ---
+.env
+.env.local
+.env.development
+.env.production
+.env.state
+.env.test
+.env.*.local
+*.env
+*.pem
+*.key
+auth.json
+
+# --- Dependency Managers ---
+node_modules/
+jspm_packages/
+.pnp/
+.pnp.js
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+
+# --- Build Outputs ---
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# --- Editor / IDE ---
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
