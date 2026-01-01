@@ -17,13 +17,7 @@ Desktop.ini
 
 # --- Environment / Secrets (CRITICAL) ---
 .env
-.env.local
-.env.development
-.env.production
-.env.state
-.env.test
-.env.*.local
-*.env
+.env*
 *.pem
 *.key
 auth.json
