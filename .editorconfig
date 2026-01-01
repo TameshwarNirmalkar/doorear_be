@@ -1,0 +1,31 @@
+# Top-most EditorConfig file
+root = true
+
+# Default settings for all files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Use 2 spaces for indentation (common in Node/TS)
+indent_style = space
+indent_size = 2
+
+# Match Biome / Prettier defaults
+max_line_length = 203  # Note: Standard property is 'max_line_length'
+# Removed: un_used_variables = false:error
+
+# Specific overrides
+[*.{js, ts}]
+indent_size = 2
+end_of_line = lf
+trim_trailing_whitespace = true  ; <-- Corrected typo: added 'e'
+insert_final_newline = true
+
+[*.json]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false   # Don’t remove spaces in markdown
+insert_final_newline = false       # Avoid unnecessary newlines in docs

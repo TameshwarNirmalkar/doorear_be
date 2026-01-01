@@ -1,0 +1,51 @@
+{
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "editor.formatOnSave": true,
+  "editor.fontSize": 14,
+  "editor.autoIndent": "advanced",
+  "editor.autoClosingBrackets": "always",
+  "editor.autoClosingComments": "always",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.tabSize": 2,
+  "editor.codeLens": true,
+  "editor.defaultFormatter": "biomejs.biome",
+  "prettier.printWidth": 180,
+  "biome.configurationPath": "./biome.json",
+
+  "editor.codeActionsOnSave": {
+    "source.suppressRule.inline.biome": "never",
+    "source.fixAll": "explicit",
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "never",
+    "source.organizeImports": "never"
+  },
+  "editor.rulers": [203],
+  "[javascript][typescript][json][jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.formatOnSave": true,
+    "editor.lineNumbers": "on",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.trimAutoWhitespace": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggest.showKeywords": true,
+    "editor.suggest.showSnippets": true,
+    "editor.suggest.showStatusBar": true,
+    "editor.suggest.showIcons": true,
+    "editor.suggest.showMethods": true,
+    "editor.suggest.showFunctions": true,
+    "editor.suggest.showVariables": true,
+    "editor.suggest.showClasses": true,
+    "editor.suggest.showStructs": true,
+    "editor.suggest.showInterfaces": true,
+    "editor.suggest.showModules": true,
+    "editor.suggest.showProperties": true
+  },
+  "[github-actions-workflow][markdown][xml][yaml]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
+}

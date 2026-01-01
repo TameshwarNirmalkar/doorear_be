@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "baseUrl": "./src",
+    "paths": {
+      "@publicApi/*": ["./public_api/*"],
+      "@server": ["./server.ts"],
+      "@common/*": ["./common/*"],
+      "@middlewares/*": ["./common/middlewares/*"],
+      "@services/*": ["./services/*"],
+      "@controllers/*": ["./controllers/*"],
+      "@api/*": ["./api/*"],
+      "@apiDocs/*": ["./api-docs/*"],
+      "@utils/*": ["./common/utils/*"],
+      "@config/*": ["./common/config/*"],
+      "@sql/*": ["./sql/*"],
+      "@entity/*": ["./entity/*"]
+    },
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "moduleResolution": "Node",
+    "outDir": "dist",
+    "importsNotUsedAsValues": "remove",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["vitest/globals"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

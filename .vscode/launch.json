@@ -1,0 +1,52 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run_In_Development_Mode",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["run", "start:dev"],
+      "console": "externalTerminal",
+      "skipFiles": ["<node_internals>/**"]
+      // "env": {
+      //   "PORT": "6000"
+      // }
+    },
+    {
+      "name": "Run_In_Production_Mode",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["run", "start:prod"],
+      "console": "integratedTerminal",
+      "preLaunchTask": "npm: build",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "PORT": "6001"
+      }
+    },
+    {
+      "name": "Test_Runner",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["run", "test"],
+      "console": "integratedTerminal",
+      "preLaunchTask": "npm: build",
+      "env": {
+        "PORT": "6002"
+      }
+    }
+  ]
+  // "compounds": [
+  //   {
+  //     "name": "Backend Debug",
+  //     "configurations": [
+  //       "Run_In_Development_Mode", // Name of the first config
+  //       "UI_Run_In_Development_Mode", // Name of the second config
+  //       "Test_Runner" // Name of the second config
+  //     ]
+  //   }
+  // ]
+}
