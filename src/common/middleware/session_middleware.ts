@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import session from "express-session";
 
-config({ override: true, path: "../../.env" });
+config({ override: true, path: "./.env" });
 
 const SessionMiddleware = () => {
   return session({

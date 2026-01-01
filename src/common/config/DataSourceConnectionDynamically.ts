@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import { DataSource, type DataSourceOptions } from "typeorm";
 
-dotenv.config({ override: true, path: "./src/.env" });
+dotenv.config({ override: true, path: "./.env" });
 
 // 1. Define the cache map outside the factory function
 const DataSourcesCache = new Map<string, DataSource>();
@@ -26,9 +26,7 @@ const BaseConnectionOptions: Partial<DataSourceOptions> = {
 };
 
 // 3. Factory function to create a new DataSource dynamically
-const CreateDynamicDataSource = async (
-  databaseName: string
-): Promise<DataSource> => {
+const CreateDynamicDataSource = async (databaseName: string): Promise<DataSource> => {
   // 4. Check the cache first. If found AND initialized, return the cached instance.
   const cachedDataSource = DataSourcesCache.get(databaseName);
   if (cachedDataSource?.isInitialized) {
@@ -47,14 +45,9 @@ const CreateDynamicDataSource = async (
   // Initialize the connection
   await dataSource
     .initialize()
-    .then(() =>
-      console.log(`[Success] DataSource for ${databaseName} initialized.`)
-    )
+    .then(() => console.log(`[Success] DataSource for ${databaseName} initialized.`))
     .catch((error) => {
-      console.error(
-        `[Error] Failed to initialize connection for ${databaseName}:`,
-        error
-      );
+      console.error(`[Error] Failed to initialize connection for ${databaseName}:`, error);
       throw error;
     });
 
@@ -70,9 +63,7 @@ const CreateDynamicDataSource = async (
  * Safely destroys a cached data source connection pool and removes it from the cache.
  * @param databaseName The name of the database to destroy the connection for.
  */
-export const DestroyDynamicDataSource = async (
-  databaseName: string
-): Promise<void> => {
+export const DestroyDynamicDataSource = async (databaseName: string): Promise<void> => {
   const dataSource = DataSourcesCache.get(databaseName);
 
   if (dataSource) {

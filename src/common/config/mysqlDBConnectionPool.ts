@@ -4,7 +4,7 @@ import type { PoolOptions } from "mysql2";
 import * as mysql from "mysql2";
 
 // Load environment variables from .env file
-dotenv.config({ override: true, path: "./src/.env" });
+dotenv.config({ override: true, path: "./.env" });
 
 // Define a type for the connection pool configuration
 const poolConfig: PoolOptions = {

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { z } from "zod";
 
-dotenv.config({ override: true, path: "./src/.env" });
+dotenv.config({ override: true, path: "./.env" });
 
 // console.info("\n====================********", process.env, "\n\n");
 
@@ -17,7 +17,7 @@ const envSchema = z.object({
   DB_USER: z.string().min(1).default("root"),
   DB_PASSWORD: z.string().min(1).default("admin123"),
   DB_NAME: z.string().min(1).default("doorear"),
-  API_PARAM: z.string().min(1).default("api/v1"),
+  API_PARAM: z.string().min(1).default("/api/v1"),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

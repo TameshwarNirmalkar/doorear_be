@@ -46,14 +46,10 @@ app.use(SessionMiddleware());
 // Request logging
 app.use(requestLogger);
 
-app.use(`/${process.env.API_PARAM}/api/v2/auth`, authRouter);
+app.use(`/${process.env.API_PARAM}/auth`, authRouter);
 
-app.use(
-  `/${process.env.API_PARAM}/api/v2/:crmtype`,
-  CheckCrmTypes,
-  privateRouter
-);
-app.use(`/${process.env.API_PARAM}/api/v2`, CheckCrmTypes, publicRouter);
+app.use(`/${process.env.API_PARAM}/`, CheckCrmTypes, privateRouter);
+app.use(`/${process.env.API_PARAM}/`, CheckCrmTypes, publicRouter);
 
 // Swagger UI
 app.use(openAPIRouter);
