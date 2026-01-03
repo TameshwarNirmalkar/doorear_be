@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity("emailtemplate")
+@Entity("email_template")
 export class EmailTemplateEntity {
   @PrimaryGeneratedColumn({ type: "int" })
   email_template_id?: number;

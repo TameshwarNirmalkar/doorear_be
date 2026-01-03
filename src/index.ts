@@ -25,7 +25,7 @@ const credentials = {
   cert: fs.readFileSync(path.resolve(__dirname, "./common/certificate/127.0.0.1+1.pem")),
 };
 
-const generateTables = async () => {
+const _generateTables = async () => {
   try {
     const con = await CreateDynamicDataSource("testDoorear");
     console.log("Generating Tables in test_db...");
@@ -38,7 +38,7 @@ const generateTables = async () => {
   }
 };
 
-(() => generateTables())();
+// (() => generateTables())();
 
 const server = https.createServer(credentials, app).listen(PORT, HOST, 3001, () => {
   PinoLogger.info(`\n\nServer ✔ (${NODE_ENV}) running on port https://${HOST}:${PORT}/${API_PARAM}`);
