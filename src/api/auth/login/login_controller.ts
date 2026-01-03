@@ -1,8 +1,5 @@
-import PoolDBInstance from "@common/config/MysqlDBConnectionPool";
 import type { Record } from "@common/global_types/generic_types";
-// import SelectCilentDataBaseDetails from "@common/services/select_database";
 import type { Request, Response } from "express";
-import type { RowDataPacket } from "mysql2";
 
 type LoginI = {
   client_id: number;
@@ -23,14 +20,14 @@ const LoginController = async (req: Request<RequestParams, ResBody, LoginI>, res
     // const { DbName } = await SelectCilentDataBaseDetails(client_id);
 
     // Add Client timestamp
-    const [isUserLogin] = await PoolDBInstance.query<RowDataPacket[]>(`call client_${client_id}.uspLoginProc(?,?,?)`, [email_address, "ADD", null]);
-    // console.log("Login User = ", isUserLogin);
+
+    console.log("Login User = ", client_id, email_address);
 
     res.json({
       status: 200,
       success: true,
       message: "New session started successfully",
-      time_stamp: isUserLogin[0][0].timeVal,
+      time_stamp: new Date().toISOString(),
     });
   } catch (error) {
     console.log("Error Client DB selected = ", error);

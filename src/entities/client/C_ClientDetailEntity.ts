@@ -61,14 +61,14 @@ class ClientDetailsEntity {
   sso_enabled!: boolean;
 
   @Column({
-    name: "createdOn",
+    name: "created_on",
     type: "datetime",
     nullable: false,
   })
   createdOn!: Date;
 
   @Column({
-    name: "updatedBy",
+    name: "updated_by",
     type: "varchar",
     length: 512,
     nullable: true,
@@ -113,12 +113,12 @@ class ClientDetailsEntity {
   otp_generated_date_time!: Date | null;
 
   @Column({
-    name: "totp_secret",
+    name: "otp_code",
     type: "varchar",
     length: 50,
     nullable: true,
   })
-  totp_secret!: string | null;
+  otp_code!: string | null;
 
   @Column({ name: "resent_otp_date_time", type: "datetime", nullable: true })
   resent_otp_date_time!: Date | null;

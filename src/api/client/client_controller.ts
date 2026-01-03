@@ -1,9 +1,10 @@
 import type { Request, Response } from "express";
-import RoleService from "./client_service";
+import ClientService from "./client_service";
 
 const ClientController = async (req: Request, res: Response) => {
   console.log("ClientController called");
-  const result = await RoleService();
+  const result = await ClientService();
+  console.log("ClientController result:", result);
   try {
     res.status(200).json({ ...result });
   } catch (error) {

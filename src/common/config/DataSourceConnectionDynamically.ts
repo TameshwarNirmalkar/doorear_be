@@ -6,23 +6,23 @@ dotenv.config({ override: true, path: "./.env" });
 // 1. Define the cache map outside the factory function
 const DataSourcesCache = new Map<string, DataSource>();
 
+const { DB_HOST, DB_PORT, DB_USER, DB_PASS } = process.env;
+
 // 2. Define the base configuration
 const BaseConnectionOptions: Partial<DataSourceOptions> = {
-  type: "mysql",
-  host: process.env.HOST || "localhost",
-  port: process.env.DB_PORT || 3306, // Parse port number from string to integer
-  username: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "admin123",
-  // Do NOT include the 'database' here
+  type: "postgres",
+  host: String(DB_HOST),
+  port: Number(DB_PORT),
+  username: DB_USER,
+  password: DB_PASS,
+  // database: String(DB_NAME), // Do NOT include the 'database' here
   synchronize: false,
   logging: ["query", "error"],
-  entities: ["src/entity/**/*.ts"],
-  migrations: [],
-  subscribers: [],
-  multipleStatements: true,
+  entities: ["src/entities/**/*.ts"],
+  migrations: ["src/migrations/**/*.ts"],
+  subscribers: ["src/subscribers/**/*.ts"],
   cache: true,
-  enableQueryTimeout: true,
-  trace: true,
+  ssl: true,
 };
 
 // 3. Factory function to create a new DataSource dynamically

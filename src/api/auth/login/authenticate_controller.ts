@@ -1,10 +1,9 @@
 import CreateDynamicDataSource, { DestroyDynamicDataSource } from "@common/config/DataSourceConnectionDynamically";
-// import PoolDBInstance from "@common/config/MysqlDBConnectionPool";
 import PBKDFunction from "@common/services/password_based_key_derivation_function";
 import SelectCilentDataBaseDetails from "@common/services/select_database";
 import { decrypt } from "@common/utils/encrypt_decrypt";
 import { GenerateGenericJWTToken } from "@common/utils/generate_jwt_token";
-import ClientUserDetailEntity from "@entity/client/C_ClientUserDetailEntity";
+import ClientUserDetailEntity from "entities/client/C_ClientDetailEntity";
 
 import type { Request, Response } from "express";
 // import type { RowDataPacket } from "mysql2";

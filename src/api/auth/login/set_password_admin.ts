@@ -1,10 +1,6 @@
 import { randomBytes } from "node:crypto";
-// import VerifyRecaptcha from "@api/auth/verify_captcha_service";
-import PoolDBInstance from "@common/config/MysqlDBConnectionPool";
 import PBKDFunction from "@common/services/password_based_key_derivation_function";
-import SelectCilentDataBaseDetails from "@common/services/select_database";
 import type { Request, Response } from "express";
-import type { RowDataPacket } from "mysql2";
 
 type SetPasswordDomainI = {
   new_password: string;
@@ -25,9 +21,7 @@ const SetPasswordAdminController = async (req: Request<SetPasswordDomainI>, res:
 
       const isPBKDFRes = await PBKDFunction(new_password, salt, iterations, keylen, digest);
       if (reset_pwd_link.lastIndexOf("@") === -1) {
-        const isChangePassword = await PoolDBInstance.query<RowDataPacket[]>("call vyakar.uspResetPasswordAdmin(?,?)", [reset_pwd_link, new_password]);
-        const { Success, Message, EmailAddress } = isChangePassword[0][0][0];
-        if (!Success) {
+        if (!isPBKDFRes.derivedKey) {
           res.status(404).json({
             success: false,
             message: "Error in Operation, Unable to set the password",
@@ -35,37 +29,18 @@ const SetPasswordAdminController = async (req: Request<SetPasswordDomainI>, res:
           });
         } else {
           res.status(404).json({
-            success: Success,
-            message: Message,
-            emailaddress: EmailAddress,
+            success: isPBKDFRes.success,
+            message: isPBKDFRes.message,
+            emailaddress: isPBKDFRes.derivedKey,
           });
         }
       } else {
         const client_id = reset_pwd_link.substr(reset_pwd_link.lastIndexOf("@") + 1, reset_pwd_link.length);
-        // const { DbName } = await SelectCilentDataBaseDetails(clientId);
 
-        const [isPasswordUpdated] = await PoolDBInstance.query<RowDataPacket[]>(`call client_${client_id}.uspResetPasswordAdmin(?,?,?,?)`, [reset_pwd_link, isPBKDFRes.derivedKey, salt, iterations]);
-
-        const { Success, Message, EmailAddress } = isPasswordUpdated[0][0];
-
-        // if (!Success) {
-        //     res.status(404).json({
-        //         success: false,
-        //         message:
-        //             "Error in Operation, Unable to set the password",
-        //         data: "",
-        //     });
-        // } else {
-        //     res.status(200).json({
-        //         success: Success,
-        //         message: Message,
-        //         emailaddress: EmailAddress,
-        //     });
-        // }
         res.status(200).json({
-          success: Success,
-          message: Message,
-          emailaddress: EmailAddress,
+          success: client_id,
+          message: client_id,
+          emailaddress: client_id,
         });
       }
     }

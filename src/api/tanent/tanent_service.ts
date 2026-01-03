@@ -1,20 +1,22 @@
-import PoolConnectionInstance from "@common/config/MysqlDBConnectionPool";
+// import PgConnectionPool from "@common/config/DataSourceConnectionDynamically";
 
-import type { RowDataPacket } from "mysql2";
+import type { QueryResult } from "pg";
 
-const TanentService = async () => {
+const TanentService = async (): Promise<{ success: boolean; message: string; data: QueryResult[] | null }> => {
   try {
     // 1. check has DB or not
-    const [result] = await PoolConnectionInstance.query<RowDataPacket[]>(`SELECT * FROM tenants`);
-    console.log("TanentService result:", result);
+    // const result = await PgConnectionPool.query<QueryResult>(`SELECT * FROM tenants`);
+    console.log("TanentService result:", []);
 
-    return { success: true, message: "Successful fetch tenants", data: result };
+    return { success: true, message: "Successful fetch tenants", data: [] };
   } catch (error) {
-    return {
+    return Promise.reject({
       success: false,
       message: `Tenant List Unsuccessful ${error}`,
       data: null,
-    };
+    });
+  } finally {
+    // PgConnectionPool.end();
   }
 };
 
