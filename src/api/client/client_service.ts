@@ -1,4 +1,4 @@
-import PoolConnectionInstance from "@common/config/mysqlDBConnectionPool";
+import PoolConnectionInstance from "@common/config/MysqlDBConnectionPool";
 
 import type { RowDataPacket } from "mysql2";
 

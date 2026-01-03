@@ -1,4 +1,4 @@
-import PoolConnectionInstance from "@common/config/mysqlDBConnectionPool";
+import PoolConnectionInstance from "@common/config/MysqlDBConnectionPool";
 import type { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import type { ResultSetHeader } from "mysql2/promise";

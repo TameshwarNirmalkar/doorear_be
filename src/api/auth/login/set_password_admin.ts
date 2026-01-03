@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 // import VerifyRecaptcha from "@api/auth/verify_captcha_service";
-import PoolDBInstance from "@common/config/mysqlDBConnectionPool";
+import PoolDBInstance from "@common/config/MysqlDBConnectionPool";
 import PBKDFunction from "@common/services/password_based_key_derivation_function";
 import SelectCilentDataBaseDetails from "@common/services/select_database";
 import type { Request, Response } from "express";

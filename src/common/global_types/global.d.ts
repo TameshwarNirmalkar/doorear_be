@@ -1,4 +1,4 @@
-import type { UserDetailsType } from "@common/global_types/generic_types";
+import type { ClientDetailsType } from "@common/global_types/generic_types";
 
 declare global {
   namespace Express {

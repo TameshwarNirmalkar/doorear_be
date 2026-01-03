@@ -1,4 +1,4 @@
-import PoolDBInstance from "@common/config/mysqlDBConnectionPool";
+import PoolDBInstance from "@common/config/MysqlDBConnectionPool";
 import type { RowDataPacket } from "mysql2";
 import speakeasy from "speakeasy";
 

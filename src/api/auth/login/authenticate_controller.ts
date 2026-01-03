@@ -1,5 +1,5 @@
 import CreateDynamicDataSource, { DestroyDynamicDataSource } from "@common/config/DataSourceConnectionDynamically";
-import PoolDBInstance from "@common/config/mysqlDBConnectionPool";
+// import PoolDBInstance from "@common/config/MysqlDBConnectionPool";
 import PBKDFunction from "@common/services/password_based_key_derivation_function";
 import SelectCilentDataBaseDetails from "@common/services/select_database";
 import { decrypt } from "@common/utils/encrypt_decrypt";
@@ -7,7 +7,7 @@ import { GenerateGenericJWTToken } from "@common/utils/generate_jwt_token";
 import ClientUserDetailEntity from "@entity/client/C_ClientUserDetailEntity";
 
 import type { Request, Response } from "express";
-import type { RowDataPacket } from "mysql2";
+// import type { RowDataPacket } from "mysql2";
 import { z } from "zod";
 
 type LoginCredentialsI = {
@@ -64,7 +64,7 @@ const AuthenticateController = async (req: Request<LoginCredentialsI>, res: Resp
 
     const isPBKDFRes = await PBKDFunction(passwordString, salt, +iterations, 32, "sha256");
 
-    // console.log("token = ", isPBKDFRes);
+    console.log("token = ", isPBKDFRes);
 
     // const [loginClient] = await PoolDBInstance.query<RowDataPacket[]>(`call ${DbName}.uspClientLoginProc(?, ?, ?)`, [email_address, isPBKDFRes.derivedKey, client_id]);
     // const {

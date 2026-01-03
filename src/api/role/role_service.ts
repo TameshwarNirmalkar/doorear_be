@@ -1,10 +1,11 @@
-import PoolConnectionInstance from "@common/config/mysqlDBConnectionPool";
+import PgConnectionPool from "@common/config/PgDBConnectionString";
 
-import type { RowDataPacket } from "mysql2";
+import type { QueryResult } from "pg";
 
 const RoleService = async () => {
   try {
-    const [result] = await PoolConnectionInstance.query<RowDataPacket[]>(`SELECT * FROM roles`);
+    const result = await PgConnectionPool.query<QueryResult>(`SELECT * FROM roles`);
+    console.log(`Roles fetched successfully: ${JSON.stringify(result)}`);
     return { success: true, message: "Successful fetch roles", data: result };
   } catch (error) {
     return {
