@@ -3,9 +3,9 @@ import * as fs from "node:fs";
 import https from "node:https";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
+import CreateDynamicDataSource, { DestroyDynamicDataSource } from "@common/config/DataSourceConnectionDynamically";
 import { env } from "@common/utils/envConfig";
 import PinoLogger from "@common/utils/logger/pino_logger";
-
 import { app } from "./server";
 
 const { NODE_ENV, HOST, PORT, API_PARAM } = env;
@@ -24,6 +24,21 @@ const credentials = {
   key: fs.readFileSync(path.resolve(__dirname, "./common/certificate/127.0.0.1+1-key.pem")),
   cert: fs.readFileSync(path.resolve(__dirname, "./common/certificate/127.0.0.1+1.pem")),
 };
+
+const generateTables = async () => {
+  try {
+    const con = await CreateDynamicDataSource("testDoorear");
+    console.log("Generating Tables in test_db...");
+    await con.synchronize();
+    console.log("Tables generated successfully.");
+  } catch (error) {
+    console.error("Error generating tables:", error);
+  } finally {
+    await DestroyDynamicDataSource(`testDoorear`);
+  }
+};
+
+(() => generateTables())();
 
 const server = https.createServer(credentials, app).listen(PORT, HOST, 3001, () => {
   PinoLogger.info(`\n\nServer ✔ (${NODE_ENV}) running on port https://${HOST}:${PORT}/${API_PARAM}`);

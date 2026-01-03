@@ -62,10 +62,10 @@ class ClientDetailsEntity {
 
   @Column({
     name: "created_on",
-    type: "datetime",
+    type: "timestamp",
     nullable: false,
   })
-  createdOn!: Date;
+  created_on!: Date;
 
   @Column({
     name: "updated_by",
@@ -75,7 +75,7 @@ class ClientDetailsEntity {
   })
   updatedBy!: string | null;
 
-  @Column({ name: "reset_rassword_date", type: "datetime", nullable: true })
+  @Column({ name: "reset_rassword_date", type: "timestamp", nullable: true })
   reset_rassword_date!: Date | null;
 
   @Column({
@@ -107,7 +107,7 @@ class ClientDetailsEntity {
 
   @Column({
     name: "otp_generated_date_time",
-    type: "datetime",
+    type: "timestamp",
     nullable: true,
   })
   otp_generated_date_time!: Date | null;
@@ -120,7 +120,7 @@ class ClientDetailsEntity {
   })
   otp_code!: string | null;
 
-  @Column({ name: "resent_otp_date_time", type: "datetime", nullable: true })
+  @Column({ name: "resent_otp_date_time", type: "timestamp", nullable: true })
   resent_otp_date_time!: Date | null;
 
   @Column({ name: "resent_otp_count", type: "int", nullable: true })
@@ -136,7 +136,7 @@ class ClientDetailsEntity {
 
   @Column({
     name: "rate_limit_attempt_date_time",
-    type: "datetime",
+    type: "timestamp",
     nullable: true,
   })
   rate_limit_attempt_date_time!: Date | null;
