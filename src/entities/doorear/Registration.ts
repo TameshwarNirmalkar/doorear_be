@@ -7,7 +7,7 @@ export enum ClientStatus {
   CANCELLED = "CANCELLED",
 }
 
-@Entity("client_signup")
+@Entity("registration")
 export class ClientSignUpEntity {
   @PrimaryGeneratedColumn({ type: "int" })
   id!: number;

@@ -3,32 +3,32 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity("emailtemplate")
 export class EmailTemplateEntity {
   @PrimaryGeneratedColumn({ type: "int" })
-  EmailTemplateId?: number;
+  email_template_id?: number;
 
   @Column({ type: "text", nullable: false })
-  NotificationType?: string;
+  notification_type?: string;
 
   @Column({ type: "text", nullable: false })
-  EmailSubject?: string;
+  email_subject?: string;
 
   @Column({ type: "text", nullable: false })
-  EmailBody?: string;
+  email_body?: string;
 
   @Column({ type: "varchar", length: 255, nullable: false })
-  Emails?: string;
+  emails?: string;
 
   @Column({ type: "varchar", length: 255, nullable: false })
-  EmailFrom?: string;
+  email_from?: string;
 
   @Column({ type: "text", nullable: true })
-  LeadDefaultMessage?: string;
+  lead_default_message?: string;
 
   @Column({ type: "text", nullable: true })
-  ContactDefaultMessage?: string;
+  contact_default_message?: string;
 
   @Column({ type: "varchar" })
-  CreatedBy?: string;
+  created_by?: string;
 
   @Column({ type: "timestamp", nullable: false })
-  CreatedOn?: Date;
+  created_on?: Date;
 }

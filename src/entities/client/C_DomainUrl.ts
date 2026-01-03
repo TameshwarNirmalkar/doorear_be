@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: "c_domain_url" })
+@Entity({ name: "client_domain" })
 class ClientDomainUrlEntity {
-  @PrimaryGeneratedColumn({ name: "domain_url_id", type: "int" })
-  domain_url_id!: number;
+  @PrimaryGeneratedColumn({ name: "domain_id", type: "int" })
+  domain_id!: number;
 
   @Column({
     name: "domain_url",

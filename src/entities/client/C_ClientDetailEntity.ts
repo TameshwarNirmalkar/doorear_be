@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-@Entity({ name: "c_clientdetail" })
+@Entity({ name: "client_detail" })
 class ClientDetailsEntity {
   // @PrimaryColumn()
   @Index("client_id")
