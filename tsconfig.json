@@ -15,7 +15,7 @@
       "@utils/*": ["./common/utils/*"],
       "@config/*": ["./common/config/*"],
       "@sql/*": ["./sql/*"],
-      "@entity/*": ["./entity/*"]
+      "@entities/*": ["./entities/*"]
     },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

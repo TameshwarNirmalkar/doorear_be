@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 export enum ClientStatus {
   START = "START",
@@ -27,6 +27,6 @@ export class ClientSignUpEntity {
   @Column({ type: "int" })
   db_created!: number;
 
-  @Column({ type: "timestamp" })
-  created_at!: Date;
+  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", nullable: true })
+  created_at?: Date;
 }

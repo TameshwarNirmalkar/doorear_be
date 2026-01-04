@@ -23,6 +23,7 @@ const BaseConnectionOptions: Partial<DataSourceOptions> = {
   subscribers: ["src/subscribers/**/*.ts"],
   cache: true,
   ssl: false,
+  migrationsRun: false,
 };
 
 // 3. Factory function to create a new DataSource dynamically

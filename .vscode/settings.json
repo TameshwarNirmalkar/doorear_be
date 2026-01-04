@@ -47,5 +47,39 @@
   },
   "[github-actions-workflow][markdown][xml][yaml]": {
     "editor.defaultFormatter": "biomejs.biome"
+  },
+  "nestjs.enable": true,
+  "nestjs.files.include": ["ts"],
+  "nestjs.files.exclude": ["**/node_modules/**", "**/dist/**", "**/out/**", "**/build/**", "**/.*/**"], // Glob patterns of files or folders to exclude in the Sidebar Nest File Generator
+  "nestjs.files.watch": ["controllers", "dtos", "services", "entities", "migrations"], // The list of types of files to watch in the Sidebar Nest File Generator
+  "nestjs.files.showPath": true,
+  "nestjs.files.autoImport": true, // Automatically import the generated file
+  "nestjs.files.skipFolderConfirmation": false, // Skip folder confirmation when generating a new file
+  "nestjs.files.orm": "typeorm", // The ORM to use when generating a new file
+  "nestjs.submenu.activateItem": {
+    "file": {
+      "class": true,
+      "controller": true,
+      "decorator": true,
+      "dto": true,
+      "exception": true,
+      "exceptionFilter": true,
+      "filter": true,
+      "gateway": true,
+      "guard": true,
+      "interceptor": true,
+      "interface": true,
+      "jwtGuard": true,
+      "jwtStrategy": true,
+      "middleware": true,
+      "logger": true,
+      "module": true,
+      "pipe": true,
+      "provider": true,
+      "resolver": true,
+      "service": true,
+      "test": true,
+      "template": true
+    }
   }
 }
