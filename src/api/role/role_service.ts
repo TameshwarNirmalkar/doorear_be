@@ -1,21 +1,42 @@
-// import PgConnectionPool from "@common/config/DataSourceConnectionDynamically";
-import type { QueryResult } from "pg";
+import CreateDynamicDataSource, { DestroyDynamicDataSource } from "@common/config/DataSourceConnectionDynamically";
+import { RolesEntity } from "@entities/doorear/Roles";
 
-const RoleService = async (): Promise<{ success: boolean; message: string; data: QueryResult[] | null }> => {
+const GetRoleRepository = async () => {
+  const ds = await CreateDynamicDataSource("testDoorear");
+  return ds.getRepository(RolesEntity);
+};
+
+const GetAllRolesService = async (): Promise<{ data: RolesEntity[]; total_count: number }> => {
   try {
-    // const result = await PgConnectionPool.query<QueryResult>(`SELECT * FROM roles`);
-    console.log(`Roles fetched successfully: ${JSON.stringify([])}`);
-    return { success: true, message: "Successful fetch roles", data: [] };
+    const roleRepository = await GetRoleRepository();
+    const [data, total_count] = await roleRepository.findAndCount();
+    if (data.length === 0) {
+      throw new Error("Role does not exists");
+    }
+    return { data, total_count };
   } catch (error) {
-    return Promise.reject({
-      success: false,
-      message: `Roles List Unsuccessful ${error}`,
-      data: null,
-    });
+    throw new Error(`Error in get registration: ${error as Error}.message`);
   } finally {
-    // Optional: Any cleanup operations can be performed here
-    // PgConnectionPool.end();
+    await DestroyDynamicDataSource(`testDoorear`);
   }
 };
 
-export default RoleService;
+const AddNewRoleService = async (roles: Partial<{ role_name: string }>): Promise<RolesEntity> => {
+  try {
+    const roleRepository = await GetRoleRepository();
+    // 1. Create a new instance
+    const newRole = roleRepository.create(roles);
+    // 2. Logic (e.g., check if email exists)
+    const existingRole = await roleRepository.findOneBy({ role_name: newRole.role_name });
+    if (existingRole) {
+      throw new Error("Role Name already exists");
+    }
+    return await roleRepository.save(newRole);
+  } catch (error) {
+    throw new Error(`Error in role creation: ${error as Error}.message`);
+  } finally {
+    await DestroyDynamicDataSource(`testDoorear`);
+  }
+};
+
+export { GetAllRolesService, AddNewRoleService };
