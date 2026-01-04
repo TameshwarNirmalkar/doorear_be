@@ -2,11 +2,14 @@
 import CreateDynamicDataSource from "@common/config/DataSourceConnectionDynamically";
 import { ClientSignUpEntity } from "@entities/doorear/Registration";
 
-const AppDataSource = await CreateDynamicDataSource("testDoorear");
-const registrationRepository = AppDataSource.getRepository(ClientSignUpEntity);
+const GetRegistrationRepository = async () => {
+  const ds = await CreateDynamicDataSource("testDoorear");
+  return ds.getRepository(ClientSignUpEntity);
+};
 
 const GetAllUserService = async (): Promise<{ data: ClientSignUpEntity[]; total_count: number }> => {
   try {
+    const registrationRepository = await GetRegistrationRepository();
     const userList = await registrationRepository.findAndCount();
     if (userList[0].length === 0) {
       throw new Error("User does not exists");
@@ -19,6 +22,7 @@ const GetAllUserService = async (): Promise<{ data: ClientSignUpEntity[]; total_
 
 const RegisterNewUserService = async (userData: Partial<{ full_name: string; email: string; phone: number; db_created: number }>): Promise<ClientSignUpEntity> => {
   try {
+    const registrationRepository = await GetRegistrationRepository();
     // 1. Create a new instance
     const newUser = registrationRepository.create(userData);
     // 2. Logic (e.g., check if email exists)

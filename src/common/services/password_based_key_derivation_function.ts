@@ -1,4 +1,4 @@
-import { pbkdf2 } from "node:crypto";
+import { pbkdf2, randomBytes } from "node:crypto";
 
 interface PbkdFunctionI {
   success: boolean;
@@ -6,13 +6,12 @@ interface PbkdFunctionI {
   message: string;
 }
 
-const PBKDFunction = (
-  newpassword: string,
-  salt: string,
-  iterations: number,
-  keylen: number,
-  digest: string
-): Promise<PbkdFunctionI> => {
+const PBKDFunction = (newpassword: string): Promise<PbkdFunctionI> => {
+  const salt = randomBytes(16).toString("hex"); // generate a random salt
+  const iterations = 10000;
+  const keylen = 32;
+  const digest = "sha256";
+
   return new Promise((resolve, reject) => {
     pbkdf2(newpassword, salt, iterations, keylen, digest, (err, derivedKey) => {
       if (err) {

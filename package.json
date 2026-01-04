@@ -15,7 +15,10 @@
     "check": "biome check --write",
     "test": "vitest run",
     "test:cov": "vitest run --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "migration:generate": "yarn run typeorm migration:generate -d ./src/common/config/DataSourceConnectionDynamically.ts",
+    "migration:run": "yarn run typeorm migration:run -d ./src/common/config/DataSourceConnectionDynamically.ts",
+    "migration:revert": "yarn run typeorm migration:revert -d ./src/common/config/DataSourceConnectionDynamically.ts"
   },
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "7.3.4",
@@ -83,14 +86,9 @@
     "x-frame-options": "^1.0.0"
   },
   "tsup": {
-    "entry": [
-      "src/index.ts"
-    ],
+    "entry": ["src/index.ts"],
     "outDir": "dist",
-    "format": [
-      "esm",
-      "cjs"
-    ],
+    "format": ["esm", "cjs"],
     "target": "es2020",
     "sourcemap": true,
     "clean": true,

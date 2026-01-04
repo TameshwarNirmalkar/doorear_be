@@ -1,14 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("email_template")
 export class EmailTemplateEntity {
   @PrimaryGeneratedColumn({ type: "int" })
   email_template_id?: number;
 
-  @Column({ type: "text", nullable: false })
+  @Column({ type: "varchar", length: 100, nullable: false })
   notification_type?: string;
 
-  @Column({ type: "text", nullable: false })
+  @Column({ type: "varchar", length: 255, nullable: false })
   email_subject?: string;
 
   @Column({ type: "text", nullable: false })
@@ -20,15 +20,12 @@ export class EmailTemplateEntity {
   @Column({ type: "varchar", length: 255, nullable: false })
   email_from?: string;
 
-  @Column({ type: "text", nullable: true })
-  lead_default_message?: string;
+  @Column({ type: "varchar", length: 255, nullable: true })
+  default_message?: string;
 
-  @Column({ type: "text", nullable: true })
-  contact_default_message?: string;
-
-  @Column({ type: "varchar" })
+  @Column({ type: "varchar", length: 255, nullable: true })
   created_by?: string;
 
-  @Column({ type: "timestamp", nullable: false })
+  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", nullable: true })
   created_on?: Date;
 }

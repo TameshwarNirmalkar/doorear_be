@@ -1,4 +1,3 @@
-import { randomBytes } from "node:crypto";
 import PBKDFunction from "@common/services/password_based_key_derivation_function";
 import type { Request, Response } from "express";
 
@@ -14,12 +13,7 @@ const SetPasswordAdminController = async (req: Request<SetPasswordDomainI>, res:
     // Step 1 - Verify Captcha
     const isVerified = { valid: true }; // VerifyRecaptcha(recapchaKey, false);
     if (isVerified.valid) {
-      const salt = randomBytes(16).toString("hex"); // generate a random salt
-      const iterations = 10000;
-      const keylen = 32;
-      const digest = "sha256";
-
-      const isPBKDFRes = await PBKDFunction(new_password, salt, iterations, keylen, digest);
+      const isPBKDFRes = await PBKDFunction(new_password);
       if (reset_pwd_link.lastIndexOf("@") === -1) {
         if (!isPBKDFRes.derivedKey) {
           res.status(404).json({

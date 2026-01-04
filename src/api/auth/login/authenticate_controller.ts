@@ -51,7 +51,7 @@ const AuthenticateController = async (req: Request<LoginCredentialsI>, res: Resp
     // );
     const loggedInUser = await DataSourceDynamically.query(`CALL ${DbName}.uspLoginProc(?,?,?)`, [email_address, "CHECK", timeStamp]);
 
-    const { checked, salt, iterations } = loggedInUser[0][0];
+    const { checked } = loggedInUser[0][0];
     if (!checked) {
       return res.status(400).json({
         success: false,
@@ -61,7 +61,7 @@ const AuthenticateController = async (req: Request<LoginCredentialsI>, res: Resp
 
     // console.log(DbName, "================== ", loggedInUser, "\n\n");
 
-    const isPBKDFRes = await PBKDFunction(passwordString, salt, +iterations, 32, "sha256");
+    const isPBKDFRes = await PBKDFunction(passwordString);
 
     console.log("token = ", isPBKDFRes);
 

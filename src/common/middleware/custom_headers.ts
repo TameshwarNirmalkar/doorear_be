@@ -39,6 +39,7 @@ const SetCustomHeaders = (req: Request, res: Response, next: NextFunction) => {
   next();
   console.log("REQUEST COOKIE : ==============> ", req.cookies);
   console.log("REQUEST SESSION : ==============> ", req.headers);
+  console.log("REQUEST PARAMS : ==============> ", req.query);
 };
 
 export default (req: Request, res: Response, next: NextFunction) => SetCustomHeaders(req, res, next);
