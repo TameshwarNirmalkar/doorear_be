@@ -7,7 +7,7 @@ import RegistrationRouter from "./registration/registration_routes";
 import RolesRouter from "./role/role_routes";
 import TanentController from "./tanent/tanent_controller";
 
-const privateRouter: Router = express.Router();
+const privateRouter: Router = express.Router({ mergeParams: true });
 
 // Referral Domain URL
 // privateRouter.use("/setup/referral/domain", DomainController);

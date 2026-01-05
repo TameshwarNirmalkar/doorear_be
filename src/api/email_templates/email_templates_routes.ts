@@ -1,4 +1,3 @@
-import PinoLogger from "@common/utils/logger/pino_logger";
 import type { Request, Response } from "express";
 import express, { type Router } from "express";
 import { CreateNewTemplateService, GetAllTemplatesService, GetTemplatesByNotifcationTypeService } from "./email_templates_services";
@@ -27,7 +26,6 @@ const CreateNewTemplate = async (req: Request, res: Response) => {
 };
 
 const GetTemaplateByType = async (req: Request, res: Response) => {
-  PinoLogger.debug(`===========================> Params:, ${req.params}`);
   try {
     const data = await GetTemplatesByNotifcationTypeService(req.params.notification_type);
     res.status(200).json({ message: "Get template by notification type", data });
@@ -53,7 +51,7 @@ const DeleteUser = async (req: Request, res: Response) => {
 };
 
 EmailTemplatesRouter.get("/", GetAllTemaplateLists);
-EmailTemplatesRouter.get("/notification_type", GetTemaplateByType);
+EmailTemplatesRouter.get("/:notification_type", GetTemaplateByType);
 EmailTemplatesRouter.post("/", CreateNewTemplate);
 EmailTemplatesRouter.put("/", UpdateRegisteredUser);
 EmailTemplatesRouter.delete("/", DeleteUser);
