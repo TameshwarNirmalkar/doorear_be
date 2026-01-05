@@ -36,7 +36,7 @@ const SendEmail = async ({
     });
 
     const resTransporter = await transporter.sendMail({
-      from: `"LeadAngel" <noreply@doorear.com>`,
+      from: `"Doorear" <noreply@doorear.com>`,
       to: to_email,
       cc: cc_email,
       subject: subject,
