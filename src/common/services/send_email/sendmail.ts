@@ -23,12 +23,12 @@ const SendEmail = async ({
 }> => {
   try {
     const transporter = nodemailer.createTransport({
-      host: process.env.AWS_HOSTED_ZONE_ID,
-      port: parseInt(process.env.AWS_HOSTED_PORT || "587"),
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || "587"),
       secure: false, // true for 465, false for other ports
       auth: {
-        user: process.env.AWS_SES_SMTP_USERNAME, // e.g. AKIA…
-        pass: process.env.AWS_SES_SMTP_PASSWORD, // e.g. BOzd…
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
       },
       tls: {
         ciphers: "SSLv3",
@@ -36,7 +36,7 @@ const SendEmail = async ({
     });
 
     const resTransporter = await transporter.sendMail({
-      from: `"Doorear" <noreply@doorear.com>`,
+      from: `"Doorear" <${process.env.SMTP_FROM}>`,
       to: to_email,
       cc: cc_email,
       subject: subject,

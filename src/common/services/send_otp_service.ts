@@ -1,6 +1,6 @@
 import CreateDynamicDataSource from "@common/config/DataSourceConnectionDynamically";
 import { EmailTemplateEntity } from "@entities/doorear/EmailTemplate";
-import SendEmail from "../send_email/sendmail";
+import SendEmail from "./send_email/sendmail";
 
 const GetEmailTemplateRepository = async () => {
   const ds = await CreateDynamicDataSource("testDoorear");
@@ -24,11 +24,12 @@ const SendOtpService = async (full_name: string, email_address: string, otp: str
       .replace("<<totp>>", otp)
       .replace("<<time>>", currentDateTime);
 
-    await SendEmail({ to_email: email_address, subject: email_subject || "", body: emailBody || "" });
+    const emailSentRes = await SendEmail({ to_email: email_address, subject: email_subject || "", body: emailBody || "" });
+    console.log("Email Sent Response:", emailSentRes);
 
     return { success: true, message: default_message || "OTP sent successfully", status: 200 };
-  } catch (error) {
-    throw new Error(`SendOtpService Error :: ${error}`);
+  } catch (error: any) {
+    throw new Error(`SendOtpService Error :: ${error.toString()}`);
   }
 };
 

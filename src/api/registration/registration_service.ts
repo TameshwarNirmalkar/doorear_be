@@ -7,7 +7,7 @@ const GetRegistrationRepository = async () => {
   return ds.getRepository(ClientSignUpEntity);
 };
 
-const GetAllUserService = async (): Promise<{ data: ClientSignUpEntity[]; total_count: number }> => {
+export const GetAllUserService = async (): Promise<{ data: ClientSignUpEntity[]; total_count: number }> => {
   try {
     const registrationRepository = await GetRegistrationRepository();
     const userList = await registrationRepository.findAndCount();
@@ -20,7 +20,7 @@ const GetAllUserService = async (): Promise<{ data: ClientSignUpEntity[]; total_
   }
 };
 
-const RegisterNewUserService = async (userData: Partial<{ full_name: string; email: string; phone: number; db_created: number }>): Promise<ClientSignUpEntity> => {
+export const RegisterNewUserService = async (userData: Partial<{ full_name: string; email: string; phone: number; db_created: number }>): Promise<ClientSignUpEntity> => {
   try {
     const registrationRepository = await GetRegistrationRepository();
     // 1. Create a new instance
@@ -36,4 +36,16 @@ const RegisterNewUserService = async (userData: Partial<{ full_name: string; ema
   }
 };
 
-export { GetAllUserService, RegisterNewUserService };
+export const DeleteRegisterUserService = async (id: number): Promise<{ success: boolean; message: string }> => {
+  try {
+    const registrationRepository = await GetRegistrationRepository();
+    const user = await registrationRepository.findOneBy({ id });
+    if (!user) {
+      throw new Error("User does not exists");
+    }
+    await registrationRepository.remove(user);
+    return { success: true, message: "User deleted successfully" };
+  } catch (error) {
+    throw new Error(`Error in delete user: ${error as Error}.message`);
+  }
+};
