@@ -37,9 +37,7 @@ export const GetTemplatesByNotifcationTypeService = async (notification_type: st
 export const CreateNewTemplateService = async (templateData: Partial<EmailTemplateEntity>): Promise<EmailTemplateEntity> => {
   try {
     const emailTemplateRepository = await GetEmailTemplateRepository();
-    // 1. Create a new instance
     const newTemplate = emailTemplateRepository.create(templateData);
-    // 2. Logic (e.g., check if email exists)
     const existingUser = await emailTemplateRepository.findOneBy({ notification_type: newTemplate.notification_type });
     if (existingUser) {
       throw new Error("Template type already exists");
