@@ -1,21 +1,32 @@
-// import PoolDBInstance from "@common/config/DataSourceConnectionDynamically";
-// import type { RowDataPacket } from "mysql2";
-// import SendEmail from "../send_email/sendmail";
+import CreateDynamicDataSource from "@common/config/DataSourceConnectionDynamically";
+import { EmailTemplateEntity } from "@entities/doorear/EmailTemplate";
+import SendEmail from "../send_email/sendmail";
 
-const SendOtpService = async (firstName: string, emailAddress: string, totp: string) => {
+const GetEmailTemplateRepository = async () => {
+  const ds = await CreateDynamicDataSource("testDoorear");
+  return ds.getRepository(EmailTemplateEntity);
+};
+
+const SendOtpService = async (full_name: string, email_address: string, otp: string) => {
   try {
-    // const sql = `SELECT * FROM emailtemplate WHERE NotificationType=?`;
-    // const row = await PoolDBInstance.query<RowDataPacket[]>(sql, ["TOTP"]);
+    const emailTemplateRepository = await GetEmailTemplateRepository();
+    const template = await emailTemplateRepository.findOne({
+      where: { notification_type: "OTP" },
+    });
+    if (!template) {
+      throw new Error("Template does not exists");
+    }
 
-    // const currentDateTime = new Date().toUTCString().replace("GMT", "UTC");
-    // const { EmailBody, EmailSubject } = row[0][0];
-    // const EmailTemplate = EmailBody.replace("<<firstName>>", `${firstName}${firstName ? "!" : ""}`)
-    //   .replace("<<totp>>", totp)
-    //   .replace("<<time>>", currentDateTime);
+    const { email_body, email_subject, default_message } = template;
+    const currentDateTime = new Date().toUTCString().replace("GMT", "UTC");
+    const emailBody = email_body
+      ?.replace("<<firstName>>", `${full_name}${full_name ? "!" : ""}`)
+      .replace("<<totp>>", otp)
+      .replace("<<time>>", currentDateTime);
 
-    // await SendEmail({ to_email: emailAddress, subject: EmailSubject, body: EmailTemplate, cc_email: undefined });
+    await SendEmail({ to_email: email_address, subject: email_subject || "", body: emailBody || "" });
 
-    return { success: true, message: "OTP sent successfully" };
+    return { success: true, message: default_message || "OTP sent successfully", status: 200 };
   } catch (error) {
     throw new Error(`SendOtpService Error :: ${error}`);
   }
