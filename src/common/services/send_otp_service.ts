@@ -28,8 +28,8 @@ const SendOtpService = async (full_name: string, email_address: string, otp: str
     console.log("Email Sent Response:", emailSentRes);
 
     return { success: true, message: default_message || "OTP sent successfully", status: 200 };
-  } catch (error: any) {
-    throw new Error(`SendOtpService Error :: ${error.toString()}`);
+  } catch (error: unknown) {
+    throw new Error(`SendOtpService Error :: ${error instanceof Error ? error.message : (error as Error).message}`);
   }
 };
 

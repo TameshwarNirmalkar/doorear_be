@@ -21,6 +21,8 @@ const headers = new Headers({
   "Access-Control-Allow-Headers":
     "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, x-access-token, x-email-id, x-device-id, x-device-token, x-device-type, role, role-region, admin, user-id, type, userid, Pragma, Cache-Control, clientid, emailaddress, auth-token",
   "Content-Security-Policy": "*",
+  "X-Powered-By": "Express",
+  "X-PM-Message-Stream": "broadcast",
 });
 
 const SetCustomHeaders = (req: Request, res: Response, next: NextFunction) => {
